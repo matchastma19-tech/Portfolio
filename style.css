@@ -129,6 +129,15 @@ p {
   margin-bottom: 2.5rem;
 }
 
+.profile-photo {
+  width: 160px;
+  height: 160px;
+  align-self: flex-start;
+  margin-bottom: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 /* =====================================================
    HOME
    ===================================================== */
