@@ -1,5 +1,3 @@
-okay edit this
-
 /* =====================================================
    COLOR AND SIZE SETTINGS
    Change a value here and it updates everywhere.
@@ -8,7 +6,7 @@ okay edit this
   --bg: #000000;          /* background: black */
   --text: #f2efe9;        /* text: off-white */
   --accent: #b9b9b9;      /* accent: light gray */
-  --line: #333333;        /* thin borders and dividers */
+  --line: #555555;        /* thin borders and dividers */
   --nav-height: 64px;     /* height of the top menu */
 }
 
@@ -118,11 +116,28 @@ p {
    ===================================================== */
 
 .section {
+  position: relative;     /* lets the divider line sit inside each section */
   max-width: 960px;
   margin: 0 auto;
   padding: 6rem 1.5rem;
   /* Stops the sticky menu from covering a section's title after a jump */
   scroll-margin-top: var(--nav-height);
+}
+
+/* Visible divider line at the top of every section */
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.5rem;           /* lines up with the text edges */
+  right: 1.5rem;
+  height: 2px;
+  background: var(--line);
+}
+
+/* Home is first and the menu already has a line under it, so no divider here */
+#home::before {
+  display: none;
 }
 
 .section-title {
@@ -139,14 +154,3 @@ p {
   border-radius: 50%;
   object-fit: cover;
 }
-
-/* =====================================================
-   HOME
-   ===================================================== */
-
-.hero {
-  /* Fills most of the first screen so the name has room */
-  min-height: calc(100vh - var(--nav-height));
-  display: flex;
-  flex-direction: column;
-  justify-content:
