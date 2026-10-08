@@ -1,23 +1,296 @@
+/* =====================================================
+   COLOR AND SIZE SETTINGS
+   Change a value here and it updates everywhere.
+   ===================================================== */
+:root {
+  --bg: #000000;          /* background: black */
+  --text: #f2efe9;        /* text: off-white */
+  --accent: #b9b9b9;      /* accent: light gray */
+  --line: #333333;        /* thin borders and dividers */
+  --nav-height: 64px;     /* height of the top menu */
+}
+
+/* =====================================================
+   BASE STYLES
+   ===================================================== */
+
+/* Include padding and borders in an element's width so layouts don't overflow */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Smooth scrolling when a menu link is clicked */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Visitors who turned off animations in their device settings get an instant jump */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
-  background-color: #111111;
-  color: #F5F5F5;
-  font-family: 'Inter', sans-serif;
-  line-height: 1.6;
   margin: 0;
-  padding: 2rem;
-  max-width: 45rem;
-  margin-left: auto;
-  margin-right: auto;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; /* fallbacks after Inter */
+  font-size: 1.0625rem;   /* about 17px */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-h1, h2 {
-  color: #D4D4D4;
-}
-
+/* Links use the accent color and brighten on hover */
 a {
-  color: #D4D4D4;
+  color: var(--accent);
+  text-underline-offset: 4px;
 }
 
-nav a {
-  margin-right: 1rem;
+a:hover {
+  color: var(--text);
+}
+
+/* Visible outline for keyboard users */
+a:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 4px;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+/* =====================================================
+   TOP MENU
+   ===================================================== */
+
+/* Stays at the top while scrolling */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav {
+  max-width: 960px;
+  height: var(--nav-height);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+/* =====================================================
+   SECTIONS (shared by all four)
+   ===================================================== */
+
+.section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem;
+  /* Stops the sticky menu from covering a section's title after a jump */
+  scroll-margin-top: var(--nav-height);
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+}
+
+/* =====================================================
+   HOME
+   ===================================================== */
+
+.hero {
+  /* Fills most of the first screen so the name has room */
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* The one bold element: a very large name.
+   clamp(min, preferred, max) scales smoothly between phone and laptop. */
+.hero-name {
+  font-size: clamp(3.5rem, 14vw, 9rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.hero-intro {
+  max-width: 34rem;   /* keeps lines a comfortable length */
+  margin-top: 2rem;
+  font-size: 1.25rem;
+}
+
+.hero-tagline {
+  margin-top: 1rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* =====================================================
+   EDUCATION
+   ===================================================== */
+
+.education-entry {
+  /* Left border marks this as one record */
+  border-left: 2px solid var(--accent);
+  padding-left: 1.5rem;
+}
+
+.education-entry h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.muted {
+  color: var(--accent);
+}
+
+/* =====================================================
+   PROJECTS
+   ===================================================== */
+
+/* Cards sit in as many columns as fit (at least 240px wide each).
+   On a phone they stack to one column automatically. */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  transition: border-color 0.2s;
+}
+
+/* Border brightens when the visitor points at a card */
+.card:hover {
+  border-color: var(--accent);
+}
+
+.card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.card p {
+  color: var(--accent);
+  font-size: 0.975rem;
+}
+
+/* Pushes the link to the bottom so links line up across cards */
+.card-link {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* =====================================================
+   CONTACT
+   ===================================================== */
+
+.contact-note {
+  max-width: 34rem;
+  margin-bottom: 2rem;
+}
+
+.contact-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.contact-list li {
+  display: flex;
+  flex-wrap: wrap;           /* label and link stack on narrow screens */
+  gap: 0.25rem 2rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-label {
+  width: 5rem;
+  color: var(--accent);
+}
+
+.contact-list a {
+  color: var(--text);
+  overflow-wrap: anywhere;   /* long emails or links wrap instead of overflowing */
+}
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+.site-footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+/* =====================================================
+   SMALL SCREENS (phones)
+   ===================================================== */
+
+@media (max-width: 520px) {
+  .nav-brand {
+    display: none;           /* saves room so all four links fit */
+  }
+
+  .nav {
+    justify-content: center;
+  }
+
+  .nav-links {
+    gap: 1.1rem;
+  }
+
+  .section {
+    padding: 4rem 1.25rem;
+  }
 }
