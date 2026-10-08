@@ -1,156 +1,129 @@
-/* =====================================================
-   COLOR AND SIZE SETTINGS
-   Change a value here and it updates everywhere.
-   ===================================================== */
+/* ===== Theme: change colors and fonts here ===== */
 :root {
-  --bg: #000000;          /* background: black */
-  --text: #f2efe9;        /* text: off-white */
-  --accent: #b9b9b9;      /* accent: light gray */
-  --line: #555555;        /* thin borders and dividers */
-  --nav-height: 64px;     /* height of the top menu */
+  --bg: #101114;        /* dark background */
+  --panel: #181a1f;     /* card background */
+  --text: #ece9e2;      /* off-white text */
+  --accent: #c9ccd1;    /* light gray accent */
+  --highlight: #ffd166; /* XP bars, active menu, start button */
+  --pixel: "Press Start 2P", monospace;
+  --body: "Inter", system-ui, sans-serif;
 }
 
-/* =====================================================
-   BASE STYLES
-   ===================================================== */
-
-/* Include padding and borders in an element's width so layouts don't overflow */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* Smooth scrolling when a menu link is clicked */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Visitors who turned off animations in their device settings get an instant jump */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}
-
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
 body {
-  margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; /* fallbacks after Inter */
-  font-size: 1.0625rem;   /* about 17px */
+  font-family: var(--body);
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+  /* subtle pixel grid like game graph paper */
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
-/* Links use the accent color and brighten on hover */
-a {
-  color: var(--accent);
-  text-underline-offset: 4px;
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--highlight); outline-offset: 3px; }
+
+/* ===== HUD ===== */
+.hud {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding: .75rem 1.25rem;
+  background: var(--panel);
+  border-bottom: 4px solid var(--accent);
+}
+.hud-brand { font-family: var(--pixel); font-size: .8rem; text-decoration: none; color: var(--highlight); }
+.hud-nav { display: flex; gap: .25rem; flex: 1; flex-wrap: wrap; }
+.hud-nav a {
+  font-family: var(--pixel); font-size: .6rem; text-decoration: none;
+  padding: .5rem .6rem; color: var(--accent);
+}
+.hud-nav a.active { color: var(--bg); background: var(--highlight); }
+.hud-nav a:hover:not(.active) { color: var(--highlight); }
+.hud-xp { display: flex; align-items: center; gap: .6rem; font-family: var(--pixel); font-size: .6rem; }
+.hud-xp .bar { width: 110px; }
+
+/* ===== Bars (XP + skills) ===== */
+.bar { height: 14px; border: 3px solid var(--accent); background: var(--bg); }
+.bar-fill { height: 100%; background: var(--highlight); transition: width .4s steps(8); }
+
+/* ===== Screens ===== */
+.screen {
+  min-height: 100vh; scroll-snap-align: start;
+  padding: 7rem 1.25rem 3rem;
+  max-width: 960px; margin: 0 auto;
+  display: flex; flex-direction: column; justify-content: center; gap: 1.5rem;
+}
+h1, h2, h3 { font-family: var(--pixel); font-weight: 400; line-height: 1.5; }
+h2 { font-size: clamp(1rem, 3vw, 1.5rem); color: var(--highlight); }
+h3 { font-size: .85rem; }
+.small { font-family: var(--pixel); font-size: .6rem; color: var(--accent); }
+
+/* Pixel-style box: stepped corners via box-shadow */
+.card {
+  background: var(--panel);
+  border: 4px solid var(--accent);
+  box-shadow: 6px 6px 0 rgba(0,0,0,.6);
+  padding: 1.5rem;
 }
 
-a:hover {
-  color: var(--text);
+/* ===== Title screen ===== */
+.title-screen { display: flex; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+h1 { font-size: clamp(1.8rem, 7vw, 3.5rem); text-shadow: 4px 4px 0 #000; }
+.intro { max-width: 40ch; font-size: 1.1rem; }
+.tagline { max-width: 36ch; color: var(--highlight); font-family: var(--pixel); font-size: .7rem; line-height: 1.8; }
+.start-btn {
+  font-family: var(--pixel); font-size: .9rem; text-decoration: none;
+  padding: 1rem 1.5rem; background: var(--highlight); color: var(--bg);
+  border: 4px solid var(--text); box-shadow: 6px 6px 0 #000;
+  animation: blink 1.2s steps(2) infinite;   /* the one non-user motion on the page */
+}
+.start-btn:hover { animation: none; transform: translate(2px, 2px); box-shadow: 4px 4px 0 #000; }
+.hint { font-size: .85rem; color: var(--accent); }
+@keyframes blink { 50% { opacity: .55; } }
+
+/* ===== Stats ===== */
+.profile { display: flex; gap: 1.25rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.avatar {
+  width: 88px; height: 88px; display: grid; place-items: center;
+  font-family: var(--pixel); font-size: 1.2rem;
+  background: var(--bg); border: 4px solid var(--highlight); color: var(--highlight);
+}
+.profile h3 { margin-bottom: .5rem; }
+.skills { list-style: none; display: grid; gap: .9rem; }
+.skills li { display: grid; grid-template-columns: 140px 1fr; gap: 1rem; align-items: center; }
+.skills span { font-family: var(--pixel); font-size: .6rem; }
+
+/* ===== Quests ===== */
+.quests { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.quest { display: flex; flex-direction: column; gap: .75rem; }
+.quest .tech { font-size: .85rem; color: var(--accent); margin-top: auto; }
+.quest.locked { opacity: .5; border-style: dashed; }
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-block; align-self: flex-start;
+  font-family: var(--pixel); font-size: .6rem; text-decoration: none;
+  padding: .8rem 1rem; border: 3px solid var(--accent); background: var(--bg);
+  box-shadow: 4px 4px 0 #000;
+}
+.btn:hover { background: var(--highlight); color: var(--bg); border-color: var(--highlight); transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+
+/* ===== Contact ===== */
+.contact { display: grid; gap: 1.25rem; }
+.links { display: flex; gap: 1rem; flex-wrap: wrap; }
+footer { font-size: .85rem; color: var(--accent); margin-top: 2rem; }
+
+/* ===== Small screens ===== */
+@media (max-width: 600px) {
+  .hud-xp { display: none; }
+  .skills li { grid-template-columns: 1fr; gap: .4rem; }
 }
 
-/* Visible outline for keyboard users */
-a:focus-visible {
-  outline: 2px solid var(--text);
-  outline-offset: 4px;
-}
-
-h1, h2, h3 {
-  margin: 0;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
-p {
-  margin: 0;
-}
-
-/* =====================================================
-   TOP MENU
-   ===================================================== */
-
-/* Stays at the top while scrolling */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
-}
-
-.nav {
-  max-width: 960px;
-  height: var(--nav-height);
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-brand {
-  color: var(--text);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.nav-links {
-  display: flex;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.nav-links a {
-  text-decoration: none;
-  font-size: 0.95rem;
-}
-
-/* =====================================================
-   SECTIONS (shared by all four)
-   ===================================================== */
-
-.section {
-  position: relative;     /* lets the divider line sit inside each section */
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 6rem 1.5rem;
-  /* Stops the sticky menu from covering a section's title after a jump */
-  scroll-margin-top: var(--nav-height);
-}
-
-/* Visible divider line at the top of every section */
-.section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 1.5rem;           /* lines up with the text edges */
-  right: 1.5rem;
-  height: 2px;
-  background: var(--line);
-}
-
-/* Home is first and the menu already has a line under it, so no divider here */
-#home::before {
-  display: none;
-}
-
-.section-title {
-  font-size: clamp(2rem, 5vw, 2.75rem);
-  font-weight: 700;
-  margin-bottom: 2.5rem;
-}
-
-.profile-photo {
-  width: 160px;
-  height: 160px;
-  align-self: flex-start;
-  margin-bottom: 2rem;
-  border-radius: 50%;
-  object-fit: cover;
+/* ===== Respect "reduce motion" setting ===== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
 }
