@@ -1,20 +1,37 @@
+<!DOCTYPE html>
+<!-- Language is set so screen readers pronounce the page correctly -->
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+
+  <!-- Makes the page scale properly on phones. Without this line, mobile
+       browsers show a tiny zoomed-out desktop page. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Riza Mae Ollani | IT Student Portfolio</title>
+  <meta name="description" content="Portfolio of Riza Mae Ollani, Information Technology student majoring in Network Design and Management at NVSU-Bayombong.">
+
+  <!-- Inter font from Google Fonts (a stylesheet link, not JavaScript).
+       If it fails to load, style.css falls back to your device's default sans-serif. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Your CSS file. It sits in the same folder as this file. -->
   <link rel="stylesheet" href="style.css">
 </head>
-<h1>Riza Mae Ollani</h1>
-<p>Taking Information Technology Major in Network Design and Management</p>
-<nav>
-  <a href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#education">Education</a>
-  <a href="#projects">Projects</a>
-  <a href="#contact">Contact</a>
-</nav>
-<h2 id="home">Home</h2>
-<h2 id="about">About</h2>
-<h2 id="education">Education</h2>
-<h2 id="projects">Projects</h2>
-<h2 id="contact">Contact</h2>
+<body>
+
+  <!-- ============ TOP MENU ============
+       Each link points to a section's id using #. Clicking jumps to that
+       section; style.css makes the jump smooth. -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Main menu">
+      <a class="nav-brand" href="#home">Riza Mae</a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
