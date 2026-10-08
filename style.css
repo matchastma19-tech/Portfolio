@@ -1,3 +1,8 @@
 body {
-  background-color: Midnight Navy;
+  background-color: midnight navy;
+  color: off white;
+}
+
+h1, h2 {
+  color: lavender;
 }
