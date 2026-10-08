@@ -1,89 +1,92 @@
 <!DOCTYPE html>
-<!-- Language is set so screen readers pronounce the page correctly -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <!-- Makes the page scale properly on phones. Without this line, mobile
-       browsers show a tiny zoomed-out desktop page. -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>Riza Mae Ollani | IT Student Portfolio</title>
-  <meta name="description" content="Portfolio of Riza Mae Ollani, Information Technology student majoring in Network Design and Management at NVSU-Bayombong.">
-
-  <!-- Inter font from Google Fonts (a stylesheet link, not JavaScript).
-       If it fails to load, style.css falls back to your device's default sans-serif. -->
+  <meta name="description" content="Portfolio of Riza Mae Ollani, 3rd-year Information Technology student at NVSU-Bayombong.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-
-  <!-- Your CSS file. It sits in the same folder as this file. -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ============ TOP MENU ============ -->
-  <header class="site-header">
-    <nav class="nav" aria-label="Main menu">
-      <a class="nav-brand" href="#home">Riza Mae</a>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+  <!-- HUD: always visible menu + progress -->
+  <header class="hud">
+    <a class="hud-brand" href="#home">RMO</a>
+    <nav class="hud-nav" aria-label="Main menu">
+      <a href="#home" data-screen="0">Home</a>
+      <a href="#education" data-screen="1">Education</a>
+      <a href="#projects" data-screen="2">Projects</a>
+      <a href="#contact" data-screen="3">Contact</a>
     </nav>
+    <div class="hud-xp" aria-hidden="true">
+      <span id="level-label">LV 1</span>
+      <div class="bar"><div class="bar-fill" id="xp-fill"></div></div>
+    </div>
   </header>
 
   <main>
-
-    <!-- ============ 1. HOME ============ -->
-    <section id="home" class="section hero">
-      <!-- Profile picture. The file name must match exactly (it is case-sensitive). -->
-      <img class="profile-photo" src="profile.jpg" alt="Photo of Riza Mae Ollani" width="160" height="160">
-
-      <!-- The big name is the one bold element of the whole page. -->
-      <h1 class="hero-name">Riza Mae<br>Ollani</h1>
+    <!-- SCREEN 1: Title screen -->
+    <section class="screen" id="home">
+      <div class="title-screen">
+        <p class="small">Level 1: Home</p>
+        <h1>Riza Mae<br>Ollani</h1>
+        <p class="intro">Hi, I'm Riza! I'm learning how networks work and how to build things for the web.</p>
+        <p class="tagline">Currently learning. Never game over.</p>
+        <a class="start-btn" href="#education">Press Start</a>
+        <p class="hint">Tip: use the ← → arrow keys to move between screens</p>
+      </div>
     </section>
 
-    <!-- ============ 2. EDUCATION ============ -->
-    <section id="education" class="section">
-      <h2 class="section-title">Education</h2>
-
-      <article class="education-entry">
-        <h3>Bachelor of Science in Information Technology</h3>
-        <p class="education-detail">Major in Network Design and Management</p>
-        <p class="education-detail">Nueva Vizcaya State University (NVSU)-Bayombong Campus</p>
-        <p class="education-detail muted">3rd-year Student</p>
-      </article>
+    <!-- SCREEN 2: Education -->
+    <section class="screen" id="education">
+      <h2>Level 2: Education</h2>
+      <div class="card stats">
+        <div class="profile">
+          <div class="avatar" aria-hidden="true">RM</div>
+          <div>
+            <h3>Riza Mae Ollani</h3>
+            <p>3rd-year Information Technology student</p>
+            <p>Major in Network Design and Management</p>
+            <p>NVSU-Bayombong</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- ============ 3. PROJECTS ============
-         Add project cards here when you have them. -->
-    <section id="projects" class="section">
-      <h2 class="section-title">Projects</h2>
-      <p class="empty-state">No projects yet.</p>
+    <!-- SCREEN 3: Projects -->
+    <section class="screen" id="projects">
+      <h2>Level 3: Projects</h2>
+      <div class="quests">
+        <article class="card quest">
+          <p class="small">Quest 1</p>
+          <h3>Game-Style Portfolio</h3>
+          <p>My personal portfolio, built with HTML, CSS, and JavaScript and hosted on Vercel.</p>
+          <a class="btn" href="https://github.com/YOUR-USERNAME/YOUR-REPO">View on GitHub</a>
+        </article>
+        <article class="card quest locked">
+          <p class="small">Quest 2: Locked</p>
+          <h3>Coming Soon</h3>
+          <p>My next project is in progress.</p>
+        </article>
+      </div>
     </section>
 
-    <!-- ============ 4. CONTACT ============ -->
-    <section id="contact" class="section">
-      <h2 class="section-title">Contact</h2>
-      <p class="contact-note">Want to work together or just say hello? Reach me here.</p>
-
-      <ul class="contact-list">
-        <!-- mailto: opens the visitor's email app -->
-        <li>
-          <span class="contact-label">Email</span>
-          <a href="mailto:rizeam19@gmail.com">rizeam19@gmail.com</a>
-        </li>
-      </ul>
+    <!-- SCREEN 4: Contact -->
+    <section class="screen" id="contact">
+      <h2>Level 4: Contact</h2>
+      <div class="card contact">
+        <p>Want to team up? Send me a message.</p>
+        <div class="links">
+          <a class="btn" href="mailto:rizeam19@gmail.com">rizeam19@gmail.com</a>
+        </div>
+      </div>
+      <footer>&copy; 2026 Riza Mae Ollani</footer>
     </section>
-
   </main>
 
-  <footer class="site-footer">
-    <p>&copy; 2026 Riza Mae Ollani</p>
-  </footer>
-
+  <script src="script.js"></script>
 </body>
 </html>
