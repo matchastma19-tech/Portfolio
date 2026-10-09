@@ -1,169 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Riza Mae Ollani | IT Student Portfolio</title>
-  <meta name="description" content="Portfolio of Riza Mae Ollani, 3rd-year Information Technology student at NVSU-Bayombong.">
+  <title>Riza Mae Ollani | Portfolio</title>
+  <meta name="description" content="Portfolio of Riza Mae Ollani, an IT student leveling up in software development, networking, and ethical hacking.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Live background -->
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="grid-floor" aria-hidden="true"></div>
 
-  <!-- LIVE BACKGROUND: animated network (drawn by background.js) -->
-  <canvas id="bg" aria-hidden="true"></canvas>
-
-  <!-- HUD: always visible menu + progress -->
-  <header class="hud">
-    <a class="hud-brand" href="#home">RMO</a>
-    <nav class="hud-nav" aria-label="Main menu">
-      <a href="#home" data-screen="0">Home</a>
-      <a href="#education" data-screen="1">Education</a>
-      <a href="#projects" data-screen="2">Projects</a>
-      <a href="#contact" data-screen="3">Contact</a>
+  <header class="nav">
+    <a href="#home" class="logo">&lt;RM/&gt;</a>
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+    <nav id="menu">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#seminars">Seminars</a>
+      <a href="#contacts">Contacts</a>
     </nav>
-    <div class="hud-xp" aria-hidden="true">
-      <span class="net-status" id="net-status">ONLINE</span>
-      <span id="level-label">LV 1</span>
-      <div class="bar"><div class="bar-fill" id="xp-fill"></div></div>
-    </div>
   </header>
 
   <main>
-    <!-- SCREEN 1: Title screen -->
-    <section class="screen" id="home">
-      <div class="title-screen">
-        <p class="small">Level 1: Home</p>
-        <h1>Riza Mae<br>Ollani</h1>
-        <p class="intro">Hi, I'm Riza! I'm learning how networks work and how to build things for the web.</p>
-        <p class="tagline">Currently learning. Never game over.</p>
+    <!-- HOME -->
+    <section id="home" class="hero">
+      <div class="hero-text">
+        <p class="tag">&#9654; PLAYER 1 READY</p>
+        <h1>Riza Mae <span class="accent">Ollani</span></h1>
+        <p class="intro"><span id="typed"></span><span class="caret">_</span></p>
+        <noscript><p class="intro">Hi, I'm Riza Mae, an IT student leveling up in software development, networking, and ethical hacking.</p></noscript>
+        <a href="#about" class="btn blink">&#9654; Continue Learning. Never Game Over</a>
+      </div>
 
-        <!-- Terminal (typed out by script.js) -->
-        <pre class="terminal" id="terminal" aria-label="Terminal greeting">$ ping localhost
-Reply from 127.0.0.1: bytes=32 time&lt;1ms
-$ whoami
-riza-mae-ollani</pre>
-
-        <div class="actions">
-          <a class="start-btn" href="#education">Press Start</a>
-          <button type="button" class="btn" data-play>Play Network Quest</button>
+      <div class="hero-photo">
+        <div class="frame">
+          <!-- PUT YOUR PHOTO HERE: save it as "photo.jpg" in the same folder as index.html -->
+          <img src="photo.jpg" alt="Photo of Riza Mae Ollani"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="placeholder" style="display:none">RM</div>
         </div>
-        <p class="hint">Tip: use the arrow keys to move between screens. Click the background to send packets.</p>
+        <span class="pixel p1"></span><span class="pixel p2"></span><span class="pixel p3"></span>
       </div>
     </section>
 
-    <!-- SCREEN 2: Education -->
-    <section class="screen" id="education">
-      <h2>Level 2: Education</h2>
-      <div class="card stats">
-        <div class="profile">
-          <!-- If photo.jpg is missing, script.js shows the "RM" box instead -->
-          <img class="avatar-photo" src="photo.jpg" alt="Photo of Riza Mae Ollani">
-          <div>
-            <h3>Riza Mae Ollani</h3>
-            <p>3rd-year Information Technology student</p>
-            <p>Major in Network Design and Management</p>
-            <p>NVSU-Bayombong</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Seminars and Training: copy the <li> to add more. You can add a date or a short note inside it. -->
-      <div class="card training">
-        <h3>Seminars and Training</h3>
-        <ul class="training-list">
-          <li>
-            <span class="small">Attended</span>
-            <strong>GCI World 2026</strong>
-          </li>
+    <!-- ABOUT -->
+    <section id="about" class="reveal">
+      <h2><span class="lvl">01</span> About</h2>
+      <div class="card">
+        <p class="big">I am a <strong>3rd-year</strong> student majoring in <strong>Network Design and Management</strong>.</p>
+        <p class="label">Interested in</p>
+        <ul class="chips">
+          <li>Software Development</li>
+          <li>Cybersecurity</li>
+          <li>Computer Networking</li>
+          <li>Digital Forensics</li>
         </ul>
       </div>
     </section>
 
-    <!-- SCREEN 3: Projects -->
-    <section class="screen" id="projects">
-      <h2>Level 3: Projects</h2>
-      <div class="quests">
-        <article class="card quest">
-          <p class="small">Quest 1</p>
-          <h3>Game-Style Portfolio</h3>
-          <p>My personal portfolio, built with HTML, CSS, and JavaScript and hosted on Vercel.</p>
-          <a class="btn" href="https://github.com/YOUR-USERNAME/YOUR-REPO">View on GitHub</a>
-        </article>
-        <article class="card quest">
-          <p class="small">Quest 2</p>
-          <h3>Network Quest</h3>
-          <p>A playable networking quiz game with lives, a timer, streaks, and ranks. Built with HTML, CSS, and JavaScript.</p>
-          <button type="button" class="btn" data-play>Play now</button>
-        </article>
-        <article class="card quest locked">
-          <p class="small">Quest 3: Locked</p>
-          <h3>Coming Soon</h3>
-          <p>My next project is in progress.</p>
+    <!-- PROJECTS -->
+    <section id="projects" class="reveal">
+      <h2><span class="lvl">02</span> Projects</h2>
+      <div class="cards">
+        <article class="card project">
+          <span class="badge">QUEST 01</span>
+          <h3>Personal Portfolio</h3>
+          <p>The website you're on right now, built with HTML, CSS and JavaScript.</p>
         </article>
       </div>
     </section>
 
-    <!-- SCREEN 4: Contact -->
-    <section class="screen" id="contact">
-      <h2>Level 4: Contact</h2>
-      <div class="card contact">
-        <p>Want to team up? Send me a message.</p>
-        <div class="links">
-          <a class="btn" href="mailto:rizeam19@gmail.com">rizeam19@gmail.com</a>
-        </div>
+    <!-- EDUCATION -->
+    <section id="education" class="reveal">
+      <h2><span class="lvl">03</span> Education</h2>
+      <div class="card">
+        <div class="row"><span class="label">Course</span><span>Bachelor of Science in Information Technology</span></div>
+        <div class="row"><span class="label">University</span><span>Nueva Vizcaya University-Bayombong Campus</span></div>
       </div>
-      <footer>&copy; 2026 Riza Mae Ollani</footer>
+    </section>
+
+    <!-- SEMINARS -->
+    <section id="seminars" class="reveal">
+      <h2><span class="lvl">04</span> Seminars &amp; Trainings</h2>
+      <article class="card cert">
+        <span class="badge gold">&#9733; ACHIEVEMENT UNLOCKED</span>
+        <h3>GCI World April 2026: Data Science Course</h3>
+        <p>Matsuo-Iwasawa Laboratory, Graduate School of Engineering, The University of Tokyo</p>
+        <p class="date">Issued August 31, 2026</p>
+      </article>
+    </section>
+
+    <!-- CONTACTS -->
+    <section id="contacts" class="reveal">
+      <h2><span class="lvl">05</span> Contacts</h2>
+      <div class="card">
+        <div class="row"><span class="label">Email</span>
+          <a href="mailto:rizeam19@gmail.com">rizeam19@gmail.com</a></div>
+      </div>
     </section>
   </main>
 
-  <!-- MINI-GAME: Network Quest (logic in game.js) -->
-  <dialog id="game" class="game" aria-labelledby="game-title">
-    <div class="game-top">
-      <h2 id="game-title">Network Quest</h2>
-      <div class="game-top-actions">
-        <button type="button" class="btn" id="game-sound" aria-pressed="false">Sound: off</button>
-        <button type="button" class="btn" id="game-close">Close</button>
-      </div>
-    </div>
-
-    <!-- View 1: start -->
-    <div class="game-view" id="game-start">
-      <p>Answer 10 networking questions, from easy to hard. You have 3 lives and 15 seconds per question. Faster answers and streaks score more points.</p>
-      <p class="hint">Keyboard: press 1 to 4 to answer, Enter for the next question.</p>
-      <p class="hint">High score: <span id="game-best">0</span></p>
-      <button type="button" class="start-btn" id="game-go">Start game</button>
-    </div>
-
-    <!-- View 2: playing -->
-    <div class="game-view" id="game-play" hidden>
-      <div class="game-stats">
-        <span>Score <b id="g-score">0</b></span>
-        <span>Lives <b id="g-lives" aria-label="3 lives left">■ ■ ■</b></span>
-        <span>Streak <b id="g-streak">0</b></span>
-        <span id="g-level">Easy</span>
-      </div>
-      <div class="timer" aria-hidden="true"><div class="timer-fill" id="g-timer"></div></div>
-      <p class="small" id="g-progress">Question 1 of 10</p>
-      <p class="game-q" id="g-question" tabindex="-1"></p>
-      <div class="game-options" id="g-options"></div>
-      <p class="game-feedback" id="g-feedback" role="status" aria-live="polite"></p>
-      <button type="button" class="btn" id="g-next" hidden>Next</button>
-    </div>
-
-    <!-- View 3: results -->
-    <div class="game-view" id="game-over" hidden>
-      <h3 id="g-result"></h3>
-      <p id="g-rank"></p>
-      <p id="g-summary"></p>
-      <button type="button" class="start-btn" id="g-again">Play again</button>
-    </div>
-  </dialog>
+  <footer>
+    <p>&copy; <span id="year"></span> Riza Mae Ollani &middot; Continue Learning. Never Game Over.</p>
+  </footer>
 
   <script src="script.js"></script>
-  <script src="background.js"></script>
-  <script src="game.js"></script>
 </body>
 </html>
