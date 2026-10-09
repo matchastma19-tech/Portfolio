@@ -12,6 +12,9 @@
 </head>
 <body>
 
+  <!-- LIVE BACKGROUND: animated network (drawn by background.js) -->
+  <canvas id="bg" aria-hidden="true"></canvas>
+
   <!-- HUD: always visible menu + progress -->
   <header class="hud">
     <a class="hud-brand" href="#home">RMO</a>
@@ -22,6 +25,7 @@
       <a href="#contact" data-screen="3">Contact</a>
     </nav>
     <div class="hud-xp" aria-hidden="true">
+      <span class="net-status" id="net-status">ONLINE</span>
       <span id="level-label">LV 1</span>
       <div class="bar"><div class="bar-fill" id="xp-fill"></div></div>
     </div>
@@ -35,8 +39,18 @@
         <h1>Riza Mae<br>Ollani</h1>
         <p class="intro">Hi, I'm Riza! I'm learning how networks work and how to build things for the web.</p>
         <p class="tagline">Currently learning. Never game over.</p>
-        <a class="start-btn" href="#education">Press Start</a>
-        <p class="hint">Tip: use the ← → arrow keys to move between screens</p>
+
+        <!-- Terminal (typed out by script.js) -->
+        <pre class="terminal" id="terminal" aria-label="Terminal greeting">$ ping localhost
+Reply from 127.0.0.1: bytes=32 time&lt;1ms
+$ whoami
+riza-mae-ollani</pre>
+
+        <div class="actions">
+          <a class="start-btn" href="#education">Press Start</a>
+          <button type="button" class="btn" data-play>Play Network Quest</button>
+        </div>
+        <p class="hint">Tip: use the arrow keys to move between screens. Click the background to send packets.</p>
       </div>
     </section>
 
@@ -45,7 +59,8 @@
       <h2>Level 2: Education</h2>
       <div class="card stats">
         <div class="profile">
-         <img class="avatar-photo" src="photo.jpg" alt="Photo of Riza Mae Ollani">
+          <!-- If photo.jpg is missing, script.js shows the "RM" box instead -->
+          <img class="avatar-photo" src="photo.jpg" alt="Photo of Riza Mae Ollani">
           <div>
             <h3>Riza Mae Ollani</h3>
             <p>3rd-year Information Technology student</p>
@@ -53,6 +68,17 @@
             <p>NVSU-Bayombong</p>
           </div>
         </div>
+      </div>
+
+      <!-- Seminars and Training: copy the <li> to add more. You can add a date or a short note inside it. -->
+      <div class="card training">
+        <h3>Seminars and Training</h3>
+        <ul class="training-list">
+          <li>
+            <span class="small">Attended</span>
+            <strong>GCI World 2026</strong>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -66,8 +92,14 @@
           <p>My personal portfolio, built with HTML, CSS, and JavaScript and hosted on Vercel.</p>
           <a class="btn" href="https://github.com/YOUR-USERNAME/YOUR-REPO">View on GitHub</a>
         </article>
+        <article class="card quest">
+          <p class="small">Quest 2</p>
+          <h3>Network Quest</h3>
+          <p>A playable networking quiz game with lives, a timer, streaks, and ranks. Built with HTML, CSS, and JavaScript.</p>
+          <button type="button" class="btn" data-play>Play now</button>
+        </article>
         <article class="card quest locked">
-          <p class="small">Quest 2: Locked</p>
+          <p class="small">Quest 3: Locked</p>
           <h3>Coming Soon</h3>
           <p>My next project is in progress.</p>
         </article>
@@ -87,6 +119,51 @@
     </section>
   </main>
 
+  <!-- MINI-GAME: Network Quest (logic in game.js) -->
+  <dialog id="game" class="game" aria-labelledby="game-title">
+    <div class="game-top">
+      <h2 id="game-title">Network Quest</h2>
+      <div class="game-top-actions">
+        <button type="button" class="btn" id="game-sound" aria-pressed="false">Sound: off</button>
+        <button type="button" class="btn" id="game-close">Close</button>
+      </div>
+    </div>
+
+    <!-- View 1: start -->
+    <div class="game-view" id="game-start">
+      <p>Answer 10 networking questions, from easy to hard. You have 3 lives and 15 seconds per question. Faster answers and streaks score more points.</p>
+      <p class="hint">Keyboard: press 1 to 4 to answer, Enter for the next question.</p>
+      <p class="hint">High score: <span id="game-best">0</span></p>
+      <button type="button" class="start-btn" id="game-go">Start game</button>
+    </div>
+
+    <!-- View 2: playing -->
+    <div class="game-view" id="game-play" hidden>
+      <div class="game-stats">
+        <span>Score <b id="g-score">0</b></span>
+        <span>Lives <b id="g-lives" aria-label="3 lives left">■ ■ ■</b></span>
+        <span>Streak <b id="g-streak">0</b></span>
+        <span id="g-level">Easy</span>
+      </div>
+      <div class="timer" aria-hidden="true"><div class="timer-fill" id="g-timer"></div></div>
+      <p class="small" id="g-progress">Question 1 of 10</p>
+      <p class="game-q" id="g-question" tabindex="-1"></p>
+      <div class="game-options" id="g-options"></div>
+      <p class="game-feedback" id="g-feedback" role="status" aria-live="polite"></p>
+      <button type="button" class="btn" id="g-next" hidden>Next</button>
+    </div>
+
+    <!-- View 3: results -->
+    <div class="game-view" id="game-over" hidden>
+      <h3 id="g-result"></h3>
+      <p id="g-rank"></p>
+      <p id="g-summary"></p>
+      <button type="button" class="start-btn" id="g-again">Play again</button>
+    </div>
+  </dialog>
+
   <script src="script.js"></script>
+  <script src="background.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>
