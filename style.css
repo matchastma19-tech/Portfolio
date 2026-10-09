@@ -1,11 +1,3 @@
-/* ===== Profile photo ===== */
-.avatar-photo {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border: 4px solid var(--highlight);
-  box-shadow: 4px 4px 0 #000;
-}
 /* ===== Theme: change colors and fonts here ===== */
 :root {
   --bg: #101114;        /* dark background */
@@ -15,7 +7,12 @@
   --highlight: #ffd166; /* XP bars, active menu, start button */
   --pixel: "Press Start 2P", monospace;
   --body: "Inter", system-ui, sans-serif;
+  --good: #7ee787;      /* correct answers, online status */
+  --bad: #ff7b72;       /* wrong answers, offline status, low timer */
 }
+
+/* Elements with the hidden attribute must stay hidden, even if a class sets display */
+[hidden] { display: none !important; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
@@ -123,6 +120,74 @@ h1 { font-size: clamp(1.8rem, 7vw, 3.5rem); text-shadow: 4px 4px 0 #000; }
 .contact { display: grid; gap: 1.25rem; }
 .links { display: flex; gap: 1rem; flex-wrap: wrap; }
 footer { font-size: .85rem; color: var(--accent); margin-top: 2rem; }
+
+/* ===== Profile photo ===== */
+.avatar-photo {
+  width: 120px; height: 120px; object-fit: cover;
+  border: 4px solid var(--highlight); box-shadow: 4px 4px 0 #000;
+}
+
+/* ===== Seminars and Training ===== */
+.training { display: grid; gap: 1rem; }
+.training-list { list-style: none; display: grid; gap: .9rem; }
+.training-list li { display: grid; gap: .3rem; padding-left: 1rem; border-left: 4px solid var(--highlight); }
+.training-list strong { font-weight: 600; font-size: 1.05rem; }
+
+/* ===== Live background (canvas drawn by background.js) ===== */
+#bg {
+  position: fixed; inset: 0; z-index: -1;
+  width: 100%; height: 100%; pointer-events: none;
+}
+
+/* ===== Home extras: terminal, buttons, status ===== */
+.terminal {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: .9rem; line-height: 1.6; white-space: pre-wrap;
+  width: min(100%, 420px); min-height: calc(4 * 1.6em + 2rem);
+  padding: 1rem 1.25rem;
+  background: rgba(0, 0, 0, .5); color: var(--good);
+  border: 3px solid var(--accent);
+}
+.terminal::after { content: "\2588"; margin-left: 2px; animation: blink 1s steps(2) infinite; }
+.actions { display: flex; gap: 1.25rem; flex-wrap: wrap; align-items: center; }
+button.btn { color: var(--text); cursor: pointer; line-height: 1.4; }
+button.btn:hover { color: var(--bg); }
+button.start-btn { cursor: pointer; }
+.net-status { color: var(--good); }
+.net-status.offline { color: var(--bad); }
+
+/* ===== Mini-game (dialog) ===== */
+body:has(dialog[open]) { overflow: hidden; }
+dialog.game {
+  width: min(92vw, 640px); max-height: 90vh; overflow-y: auto;
+  margin: auto; padding: 1.25rem;
+  background: var(--panel); color: var(--text);
+  border: 4px solid var(--highlight); box-shadow: 8px 8px 0 #000;
+}
+dialog.game::backdrop { background: rgba(0, 0, 0, .8); }
+.game-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.game-top h2 { font-size: 1rem; }
+.game-top-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+.game-view { display: grid; gap: 1rem; }
+.game-view .start-btn, .game-view .btn { justify-self: start; }
+.game-stats { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; font-size: .9rem; color: var(--accent); align-items: center; }
+.game-stats b { color: var(--text); font-family: var(--pixel); font-weight: 400; font-size: .7rem; }
+#g-level { font-family: var(--pixel); font-size: .6rem; color: var(--highlight); margin-left: auto; }
+.timer { height: 14px; border: 3px solid var(--accent); background: var(--bg); }
+.timer-fill { height: 100%; width: 100%; background: var(--highlight); }
+.timer-fill.low { background: var(--bad); }
+.game-q { font-size: 1.15rem; font-weight: 600; line-height: 1.5; outline: none; }
+.game-options { display: grid; gap: .6rem; }
+.game-opt {
+  text-align: left; font: inherit; font-size: 1rem; color: var(--text);
+  background: var(--bg); border: 3px solid var(--accent);
+  padding: .75rem 1rem; cursor: pointer; box-shadow: 4px 4px 0 #000;
+}
+.game-opt:hover:not(:disabled) { border-color: var(--highlight); transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+.game-opt:disabled { cursor: default; opacity: .7; }
+.game-opt.right { border-color: var(--good); background: rgba(126, 231, 135, .15); opacity: 1; }
+.game-opt.wrong { border-color: var(--bad); background: rgba(255, 123, 114, .15); opacity: 1; }
+.game-feedback { min-height: 3.2em; font-size: .95rem; }
 
 /* ===== Small screens ===== */
 @media (max-width: 600px) {
