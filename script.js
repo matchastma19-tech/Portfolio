@@ -1,77 +1,76 @@
-// ===== Screens, menu links and the XP bar =====
-const screens = Array.from(document.querySelectorAll(".screen"));
-const navLinks = Array.from(document.querySelectorAll(".hud-nav a"));
-const levelLabel = document.getElementById("level-label");
-const xpFill = document.getElementById("xp-fill");
+// ---------- Typing intro ----------
+const sentence = "Hi, I'm Riza Mae, an IT student leveling up in software development, networking, and ethical hacking.";
+const typed = document.getElementById('typed');
+let i = 0;
+(function type() {
+  if (i <= sentence.length) {
+    typed.textContent = sentence.slice(0, i++);
+    setTimeout(type, 35);
+  }
+})();
 
-let current = 0;
-
-function setScreen(index) {
-  current = index;
-  navLinks.forEach((link, i) => link.classList.toggle("active", i === index));
-  levelLabel.textContent = "LV " + (index + 1);
-  xpFill.style.width = ((index + 1) / screens.length) * 100 + "%";
+// ---------- Starfield background ----------
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let stars = [];
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+  stars = Array.from({ length: Math.floor(innerWidth / 8) }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    s: Math.random() < 0.15 ? 4 : 2,
+    v: 0.1 + Math.random() * 0.5,
+    t: Math.random() * Math.PI * 2,
+    c: ['#ffffff', '#ffd84d', '#46f0a8', '#ff5fb2'][Math.floor(Math.random() * 4)]
+  }));
 }
-
-// Detect which screen is mostly in view while scrolling
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) setScreen(screens.indexOf(entry.target));
-  });
-}, { threshold: 0.55 });
-screens.forEach((screen) => observer.observe(screen));
-
-// Arrow keys (and A / D) move between screens
-document.addEventListener("keydown", (event) => {
-  if (document.querySelector("dialog[open]")) return; // don't move screens while the game is open
-  const next = ["ArrowRight", "ArrowDown", "d"].includes(event.key);
-  const prev = ["ArrowLeft", "ArrowUp", "a"].includes(event.key);
-  if (!next && !prev) return;
-  event.preventDefault();
-  const target = Math.min(screens.length - 1, Math.max(0, current + (next ? 1 : -1)));
-  screens[target].scrollIntoView({ behavior: "smooth" });
-});
-
-setScreen(0);
-
-// ===== Online / offline indicator (real browser status) =====
-const netStatus = document.getElementById("net-status");
-function updateNetStatus() {
-  const online = navigator.onLine;
-  netStatus.textContent = online ? "ONLINE" : "OFFLINE";
-  netStatus.classList.toggle("offline", !online);
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const g = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  g.addColorStop(0, '#0a0a23');
+  g.addColorStop(1, '#1d1050');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  for (const s of stars) {
+    s.t += 0.03;
+    s.y += s.v;
+    if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
+    ctx.globalAlpha = 0.5 + Math.sin(s.t) * 0.5;
+    ctx.fillStyle = s.c;
+    ctx.fillRect(Math.round(s.x), Math.round(s.y), s.s, s.s);
+  }
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(draw);
 }
-window.addEventListener("online", updateNetStatus);
-window.addEventListener("offline", updateNetStatus);
-updateNetStatus();
+addEventListener('resize', resize);
+resize();
+draw();
 
-// ===== Terminal typing effect on the Home screen =====
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const terminal = document.getElementById("terminal");
-if (terminal && !reduceMotion) {
-  const fullText = terminal.textContent;
-  terminal.textContent = "";
-  let i = 0;
-  (function typeNext() {
-    i++;
-    terminal.textContent = fullText.slice(0, i);
-    if (i < fullText.length) {
-      // short pause at the end of each line, like a real command running
-      setTimeout(typeNext, fullText[i - 1] === "\n" ? 350 : 28);
+// ---------- Scroll reveal + active nav link ----------
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => e.isIntersecting && e.target.classList.add('show'));
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+const links = document.querySelectorAll('#menu a');
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
     }
-  })();
-}
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
 
-// ===== Profile photo fallback: show "RM" box if photo.jpg is missing =====
-const photo = document.querySelector(".avatar-photo");
-function showInitials() {
-  const box = document.createElement("div");
-  box.className = "avatar";
-  box.setAttribute("aria-hidden", "true");
-  box.textContent = "RM";
-  photo.replaceWith(box);
-}
-if (photo) {
-  photo.addEventListener("error", showInitials);
-  if (photo.complete && photo.naturalWidth === 0) showInitials();
-}
+// ---------- Mobile menu ----------
+const burger = document.getElementById('burger');
+const menu = document.getElementById('menu');
+burger.addEventListener('click', () => {
+  const open = menu.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open);
+});
+links.forEach(l => l.addEventListener('click', () => menu.classList.remove('open')));
+
+// ---------- Footer year ----------
+document.getElementById('year').textContent = new Date().getFullYear();
