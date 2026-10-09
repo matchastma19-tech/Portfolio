@@ -161,3 +161,151 @@
         <div class="frame">
           <!-- YOUR PHOTO: save it as "photo.jpg" in the same folder as this file -->
           <img src="photo.jpg" alt="Photo of Riza Mae Ollani"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="placeholder" style="display:none">RM</div>
+        </div>
+        <span class="pixel p1"></span><span class="pixel p2"></span><span class="pixel p3"></span>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="reveal">
+      <h2><span class="lvl">01</span> About</h2>
+      <div class="card">
+        <p class="big">I am a <strong>3rd-year</strong> student majoring in <strong>Network Design and Management</strong>.</p>
+        <p class="label">Interested in</p>
+        <ul class="chips">
+          <li>Software Development</li>
+          <li>Cybersecurity</li>
+          <li>Computer Networking</li>
+          <li>Digital Forensics</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="reveal">
+      <h2><span class="lvl">02</span> Projects</h2>
+      <div class="cards">
+        <article class="card project">
+          <span class="badge">QUEST 01</span>
+          <h3>Personal Portfolio</h3>
+          <p>The website you're on right now, built with HTML, CSS and JavaScript.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="reveal">
+      <h2><span class="lvl">03</span> Education</h2>
+      <div class="card">
+        <div class="row"><span class="label">Course</span><span>Bachelor of Science in Information Technology</span></div>
+        <div class="row"><span class="label">University</span><span>Nueva Vizcaya University-Bayombong Campus</span></div>
+      </div>
+    </section>
+
+    <!-- SEMINARS -->
+    <section id="seminars" class="reveal">
+      <h2><span class="lvl">04</span> Seminars &amp; Trainings</h2>
+      <article class="card cert">
+        <span class="badge gold">&#9733; ACHIEVEMENT UNLOCKED</span>
+        <h3>GCI World April 2026: Data Science Course</h3>
+        <p>Matsuo-Iwasawa Laboratory, Graduate School of Engineering, The University of Tokyo</p>
+        <p class="date">Issued August 31, 2026</p>
+      </article>
+    </section>
+
+    <!-- CONTACTS -->
+    <section id="contacts" class="reveal">
+      <h2><span class="lvl">05</span> Contacts</h2>
+      <div class="card">
+        <div class="row"><span class="label">Email</span>
+          <a href="mailto:rizeam19@gmail.com">rizeam19@gmail.com</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Riza Mae Ollani &middot; Continue Learning. Never Game Over.</p>
+  </footer>
+
+  <script>
+    // Typing intro
+    const sentence = "Hi, I'm Riza Mae, an IT student leveling up in software development, networking, and ethical hacking.";
+    const typed = document.getElementById('typed');
+    let i = 0;
+    (function type() {
+      if (i <= sentence.length) {
+        typed.textContent = sentence.slice(0, i++);
+        setTimeout(type, 35);
+      }
+    })();
+
+    // Starfield background
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resize() {
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      stars = Array.from({ length: Math.floor(innerWidth / 8) }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        s: Math.random() < 0.15 ? 4 : 2,
+        v: 0.1 + Math.random() * 0.5,
+        t: Math.random() * Math.PI * 2,
+        c: ['#ffffff', '#ffd84d', '#46f0a8', '#ff5fb2'][Math.floor(Math.random() * 4)]
+      }));
+    }
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const g = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      g.addColorStop(0, '#0a0a23');
+      g.addColorStop(1, '#1d1050');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for (const s of stars) {
+        s.t += 0.03;
+        s.y += s.v;
+        if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
+        ctx.globalAlpha = 0.5 + Math.sin(s.t) * 0.5;
+        ctx.fillStyle = s.c;
+        ctx.fillRect(Math.round(s.x), Math.round(s.y), s.s, s.s);
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    }
+    addEventListener('resize', resize);
+    resize();
+    draw();
+
+    // Scroll reveal + active nav link
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => e.isIntersecting && e.target.classList.add('show'));
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    const links = document.querySelectorAll('#menu a');
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
+
+    // Mobile menu
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('menu');
+    burger.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open);
+    });
+    links.forEach(l => l.addEventListener('click', () => menu.classList.remove('open')));
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
