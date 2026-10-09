@@ -8,7 +8,125 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root{
+      --bg:#0a0a23;
+      --bg2:#14143d;
+      --card:#12123a;
+      --line:#2c2c6b;
+      --text:#e8e8ff;
+      --muted:#a3a3d6;
+      --accent:#ffd84d;
+      --accent2:#46f0a8;
+      --accent3:#ff5fb2;
+      --pix:'Press Start 2P',monospace;
+      --body:'Inter',system-ui,sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;scroll-padding-top:80px}
+    body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.7;overflow-x:hidden}
+    a{color:var(--accent2)}
+
+    /* Live background */
+    #stars{position:fixed;inset:0;width:100%;height:100%;z-index:-3}
+    .grid-floor{
+      position:fixed;left:-50%;bottom:0;width:200%;height:45vh;z-index:-2;
+      background:
+        linear-gradient(to top,rgba(70,240,168,.18),transparent 70%),
+        repeating-linear-gradient(90deg,rgba(255,95,178,.35) 0 2px,transparent 2px 70px),
+        repeating-linear-gradient(0deg,rgba(255,95,178,.35) 0 2px,transparent 2px 50px);
+      transform:perspective(300px) rotateX(60deg);transform-origin:bottom;
+      animation:floor 2.5s linear infinite;
+      mask-image:linear-gradient(to top,#000 20%,transparent);
+      -webkit-mask-image:linear-gradient(to top,#000 20%,transparent);
+    }
+    @keyframes floor{to{background-position:0 0,0 0,0 50px}}
+
+    /* Nav */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+      padding:14px 6vw;background:rgba(10,10,35,.82);backdrop-filter:blur(8px);border-bottom:3px solid var(--line)}
+    .logo{font-family:var(--pix);font-size:14px;color:var(--accent);text-decoration:none}
+    .nav nav{display:flex;gap:22px}
+    .nav nav a{font-family:var(--pix);font-size:10px;color:var(--text);text-decoration:none;padding:6px 2px;border-bottom:3px solid transparent;transition:.15s}
+    .nav nav a:hover,.nav nav a.active{color:var(--accent);border-color:var(--accent)}
+    .burger{display:none;background:none;border:3px solid var(--line);color:var(--text);font-size:20px;padding:2px 10px;cursor:pointer}
+
+    /* Layout */
+    section{padding:110px 6vw 30px;max-width:1100px;margin:0 auto}
+    h2{font-family:var(--pix);font-size:clamp(16px,2.6vw,24px);margin-bottom:28px;display:flex;align-items:center;gap:14px;line-height:1.5}
+    .lvl{background:var(--accent3);color:#fff;font-size:11px;padding:8px 10px;box-shadow:4px 4px 0 #000}
+
+    /* Hero */
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:space-between;gap:48px;padding-top:120px}
+    .hero-text{flex:1}
+    .tag{font-family:var(--pix);font-size:11px;color:var(--accent2);margin-bottom:22px;animation:flicker 3s infinite}
+    h1{font-family:var(--pix);font-size:clamp(26px,5.2vw,52px);line-height:1.35;margin-bottom:26px;text-shadow:4px 4px 0 #000}
+    .accent{color:var(--accent)}
+    .intro{font-family:'VT323',monospace;font-size:clamp(22px,3vw,30px);color:var(--muted);min-height:3.2em;margin-bottom:30px;max-width:560px}
+    .caret{animation:blink 1s steps(1) infinite;color:var(--accent2)}
+    @keyframes blink{50%{opacity:0}}
+    @keyframes flicker{0%,92%,100%{opacity:1}94%{opacity:.4}96%{opacity:1}98%{opacity:.5}}
+
+    .btn{display:inline-block;font-family:var(--pix);font-size:11px;line-height:1.8;text-decoration:none;color:#0a0a23;background:var(--accent);
+      padding:16px 20px;box-shadow:6px 6px 0 #000;transition:transform .1s,box-shadow .1s}
+    .btn:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 #000;background:var(--accent2)}
+    .blink{animation:pulse 1.6s ease-in-out infinite}
+    @keyframes pulse{50%{box-shadow:6px 6px 0 #000,0 0 22px rgba(255,216,77,.7)}}
+
+    /* Photo */
+    .hero-photo{position:relative;flex:0 0 auto}
+    .frame{width:clamp(220px,28vw,320px);aspect-ratio:1;border:6px solid var(--accent);background:var(--bg2);
+      box-shadow:10px 10px 0 var(--accent3),0 0 40px rgba(255,95,178,.35);position:relative;overflow:hidden;animation:float 4s ease-in-out infinite}
+    .frame img{width:100%;height:100%;object-fit:cover;display:block}
+    .placeholder{width:100%;height:100%;align-items:center;justify-content:center;font-family:var(--pix);font-size:48px;color:var(--accent)}
+    @keyframes float{50%{transform:translateY(-12px)}}
+    .pixel{position:absolute;width:16px;height:16px;background:var(--accent2);animation:float 3s ease-in-out infinite}
+    .p1{top:-24px;right:-22px}
+    .p2{bottom:30px;left:-30px;background:var(--accent);animation-delay:.6s}
+    .p3{bottom:-26px;right:40px;background:var(--accent3);animation-delay:1.2s}
+
+    /* Cards */
+    .card{background:var(--card);border:4px solid var(--line);padding:28px;box-shadow:8px 8px 0 #000;transition:transform .15s,border-color .15s}
+    .card:hover{border-color:var(--accent2);transform:translate(-3px,-3px)}
+    .big{font-size:19px;margin-bottom:22px}
+    .big strong{color:var(--accent)}
+    .label{font-family:var(--pix);font-size:10px;color:var(--accent3);margin-bottom:12px}
+    .chips{list-style:none;display:flex;flex-wrap:wrap;gap:12px}
+    .chips li{font-family:var(--pix);font-size:10px;line-height:1.6;padding:10px 14px;background:var(--bg2);border:3px solid var(--accent2);color:var(--accent2);transition:.15s}
+    .chips li:hover{background:var(--accent2);color:#0a0a23;transform:translateY(-4px)}
+
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
+    .badge{display:inline-block;font-family:var(--pix);font-size:9px;background:var(--accent3);color:#fff;padding:6px 8px;margin-bottom:14px}
+    .badge.gold{background:var(--accent);color:#0a0a23}
+    h3{font-family:var(--pix);font-size:14px;line-height:1.7;margin-bottom:12px;color:var(--text)}
+    .card p{color:var(--muted)}
+    .date{margin-top:10px;color:var(--accent)!important;font-family:'VT323',monospace;font-size:22px}
+
+    .row{display:flex;gap:20px;padding:12px 0;border-bottom:2px dashed var(--line);flex-wrap:wrap}
+    .row:last-child{border:0}
+    .row .label{min-width:120px;margin:0;align-self:center}
+
+    footer{text-align:center;padding:70px 6vw 50px;font-family:'VT323',monospace;font-size:20px;color:var(--muted)}
+
+    /* Scroll reveal */
+    .reveal{opacity:0;transform:translateY(40px);transition:opacity .7s,transform .7s}
+    .reveal.show{opacity:1;transform:none}
+
+    /* Responsive */
+    @media(max-width:800px){
+      .burger{display:block}
+      .nav nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:3px solid var(--line)}
+      .nav nav.open{display:flex}
+      .nav nav a{padding:16px 6vw;border-bottom:2px solid var(--line)}
+      .hero{flex-direction:column-reverse;text-align:center;justify-content:center;gap:50px;padding-top:110px}
+      .intro{margin-inline:auto}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *{animation:none!important;transition:none!important}
+      .reveal{opacity:1;transform:none}
+    }
+  </style>
 </head>
 <body>
   <!-- Live background -->
@@ -41,76 +159,5 @@
 
       <div class="hero-photo">
         <div class="frame">
-          <!-- PUT YOUR PHOTO HERE: save it as "photo.jpg" in the same folder as index.html -->
+          <!-- YOUR PHOTO: save it as "photo.jpg" in the same folder as this file -->
           <img src="photo.jpg" alt="Photo of Riza Mae Ollani"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-          <div class="placeholder" style="display:none">RM</div>
-        </div>
-        <span class="pixel p1"></span><span class="pixel p2"></span><span class="pixel p3"></span>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="reveal">
-      <h2><span class="lvl">01</span> About</h2>
-      <div class="card">
-        <p class="big">I am a <strong>3rd-year</strong> student majoring in <strong>Network Design and Management</strong>.</p>
-        <p class="label">Interested in</p>
-        <ul class="chips">
-          <li>Software Development</li>
-          <li>Cybersecurity</li>
-          <li>Computer Networking</li>
-          <li>Digital Forensics</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="reveal">
-      <h2><span class="lvl">02</span> Projects</h2>
-      <div class="cards">
-        <article class="card project">
-          <span class="badge">QUEST 01</span>
-          <h3>Personal Portfolio</h3>
-          <p>The website you're on right now, built with HTML, CSS and JavaScript.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- EDUCATION -->
-    <section id="education" class="reveal">
-      <h2><span class="lvl">03</span> Education</h2>
-      <div class="card">
-        <div class="row"><span class="label">Course</span><span>Bachelor of Science in Information Technology</span></div>
-        <div class="row"><span class="label">University</span><span>Nueva Vizcaya University-Bayombong Campus</span></div>
-      </div>
-    </section>
-
-    <!-- SEMINARS -->
-    <section id="seminars" class="reveal">
-      <h2><span class="lvl">04</span> Seminars &amp; Trainings</h2>
-      <article class="card cert">
-        <span class="badge gold">&#9733; ACHIEVEMENT UNLOCKED</span>
-        <h3>GCI World April 2026: Data Science Course</h3>
-        <p>Matsuo-Iwasawa Laboratory, Graduate School of Engineering, The University of Tokyo</p>
-        <p class="date">Issued August 31, 2026</p>
-      </article>
-    </section>
-
-    <!-- CONTACTS -->
-    <section id="contacts" class="reveal">
-      <h2><span class="lvl">05</span> Contacts</h2>
-      <div class="card">
-        <div class="row"><span class="label">Email</span>
-          <a href="mailto:rizeam19@gmail.com">rizeam19@gmail.com</a></div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; <span id="year"></span> Riza Mae Ollani &middot; Continue Learning. Never Game Over.</p>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
