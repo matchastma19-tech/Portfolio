@@ -12,9 +12,10 @@
   --body:'Inter',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:80px}
+html{scroll-behavior:smooth;scroll-padding-top:80px;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.7;overflow-x:hidden}
 a{color:var(--accent2)}
+[hidden]{display:none!important}
 
 /* ---------- Live background ---------- */
 #stars{position:fixed;inset:0;width:100%;height:100%;z-index:-3}
@@ -35,21 +36,21 @@ a{color:var(--accent2)}
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
   padding:14px 6vw;background:rgba(10,10,35,.82);backdrop-filter:blur(8px);border-bottom:3px solid var(--line)}
 .logo{font-family:var(--pix);font-size:14px;color:var(--accent);text-decoration:none}
-.nav nav{display:flex;gap:22px}
+.nav nav{display:flex;gap:18px}
 .nav nav a{font-family:var(--pix);font-size:10px;color:var(--text);text-decoration:none;padding:6px 2px;border-bottom:3px solid transparent;transition:.15s}
 .nav nav a:hover,.nav nav a.active{color:var(--accent);border-color:var(--accent)}
-.burger{display:none;background:none;border:3px solid var(--line);color:var(--text);font-size:20px;padding:2px 10px;cursor:pointer}
+.burger{display:none;background:none;border:3px solid var(--line);color:var(--text);font-size:20px;padding:2px 10px;cursor:pointer;min-height:44px;min-width:44px}
 
 /* ---------- Layout ---------- */
 section{padding:110px 6vw 30px;max-width:1100px;margin:0 auto}
-h2{font-family:var(--pix);font-size:clamp(16px,2.6vw,24px);margin-bottom:28px;display:flex;align-items:center;gap:14px;line-height:1.5}
+h2{font-family:var(--pix);font-size:clamp(14px,2.6vw,24px);margin-bottom:28px;display:flex;align-items:center;flex-wrap:wrap;gap:14px;line-height:1.5}
 .lvl{background:var(--accent3);color:#fff;font-size:11px;padding:8px 10px;box-shadow:4px 4px 0 #000}
 
 /* ---------- Hero ---------- */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:space-between;gap:48px;padding-top:120px}
-.hero-text{flex:1}
+.hero-text{flex:1;min-width:0}
 .tag{font-family:var(--pix);font-size:11px;color:var(--accent2);margin-bottom:22px;animation:flicker 3s infinite}
-h1{font-family:var(--pix);font-size:clamp(26px,5.2vw,52px);line-height:1.35;margin-bottom:26px;text-shadow:4px 4px 0 #000}
+h1{font-family:var(--pix);font-size:clamp(24px,5.2vw,52px);line-height:1.35;margin-bottom:26px;text-shadow:4px 4px 0 #000}
 .accent{color:var(--accent)}
 .intro{font-family:'VT323',monospace;font-size:clamp(22px,3vw,30px);color:var(--muted);min-height:3.2em;margin-bottom:30px;max-width:560px}
 .caret{animation:blink 1s steps(1) infinite;color:var(--accent2)}
@@ -57,8 +58,10 @@ h1{font-family:var(--pix);font-size:clamp(26px,5.2vw,52px);line-height:1.35;marg
 @keyframes flicker{0%,92%,100%{opacity:1}94%{opacity:.4}96%{opacity:1}98%{opacity:.5}}
 
 .btn{display:inline-block;font-family:var(--pix);font-size:11px;line-height:1.8;text-decoration:none;color:#0a0a23;background:var(--accent);
-  padding:16px 20px;box-shadow:6px 6px 0 #000;transition:transform .1s,box-shadow .1s}
+  padding:16px 20px;box-shadow:6px 6px 0 #000;transition:transform .1s,box-shadow .1s;border:0;cursor:pointer}
 .btn:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 #000;background:var(--accent2)}
+.btn.alt{background:var(--accent2)}
+.btn.danger{background:var(--accent3);color:#fff}
 .blink{animation:pulse 1.6s ease-in-out infinite}
 @keyframes pulse{50%{box-shadow:6px 6px 0 #000,0 0 22px rgba(255,216,77,.7)}}
 
@@ -75,7 +78,7 @@ h1{font-family:var(--pix);font-size:clamp(26px,5.2vw,52px);line-height:1.35;marg
 .p3{bottom:-26px;right:40px;background:var(--accent3);animation-delay:1.2s}
 
 /* ---------- Cards ---------- */
-.card{background:var(--card);border:4px solid var(--line);padding:28px;box-shadow:8px 8px 0 #000;transition:transform .15s,border-color .15s}
+.card{background:var(--card);border:4px solid var(--line);padding:28px;box-shadow:8px 8px 0 #000;transition:transform .15s,border-color .15s;min-width:0;overflow-wrap:anywhere}
 .card:hover{border-color:var(--accent2);transform:translate(-3px,-3px)}
 .big{font-size:19px;margin-bottom:22px}
 .big strong{color:var(--accent)}
@@ -84,12 +87,14 @@ h1{font-family:var(--pix);font-size:clamp(26px,5.2vw,52px);line-height:1.35;marg
 .chips li{font-family:var(--pix);font-size:10px;line-height:1.6;padding:10px 14px;background:var(--bg2);border:3px solid var(--accent2);color:var(--accent2);transition:.15s}
 .chips li:hover{background:var(--accent2);color:#0a0a23;transform:translateY(-4px)}
 
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
-.badge{display:inline-block;font-family:var(--pix);font-size:9px;background:var(--accent3);color:#fff;padding:6px 8px;margin-bottom:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:28px}
+.badge{display:inline-block;font-family:var(--pix);font-size:9px;line-height:1.6;background:var(--accent3);color:#fff;padding:6px 8px;margin-bottom:14px}
 .badge.gold{background:var(--accent);color:#0a0a23}
 h3{font-family:var(--pix);font-size:14px;line-height:1.7;margin-bottom:12px;color:var(--text)}
 .card p{color:var(--muted)}
 .date{margin-top:10px;color:var(--accent)!important;font-family:'VT323',monospace;font-size:22px}
+.proj-link{display:inline-block;margin-top:12px;font-family:var(--pix);font-size:10px;padding:8px 0}
+.card.empty{border-style:dashed;text-align:center}
 
 .row{display:flex;gap:20px;padding:12px 0;border-bottom:2px dashed var(--line);flex-wrap:wrap}
 .row:last-child{border:0}
@@ -97,18 +102,51 @@ h3{font-family:var(--pix);font-size:14px;line-height:1.7;margin-bottom:12px;colo
 
 footer{text-align:center;padding:70px 6vw 50px;font-family:'VT323',monospace;font-size:20px;color:var(--muted)}
 
+/* ---------- Admin ---------- */
+#admin form{display:grid;gap:16px;margin-top:16px}
+#admin label{display:grid;gap:6px;font-family:var(--pix);font-size:10px;color:var(--accent3);line-height:1.6}
+#admin input,#admin select,#admin textarea{
+  font:16px var(--body);color:var(--text);background:var(--bg2);border:3px solid var(--line);padding:10px 12px;width:100%}
+#admin input:focus,#admin select:focus,#admin textarea:focus{outline:none;border-color:var(--accent2)}
+.admin-note{font-size:15px}
+.admin-note code{color:var(--accent)}
+.admin-actions{display:flex;flex-wrap:wrap;gap:16px}
+#adminMsg{color:var(--accent2);min-height:1.5em;font-size:15px}
+.remove{margin-top:14px;font-family:var(--pix);font-size:9px;background:var(--accent3);color:#fff;border:0;padding:8px 10px;cursor:pointer;min-height:36px}
+.remove.inline{margin:0 0 0 6px;padding:4px 6px;min-height:0}
+
 /* ---------- Scroll reveal ---------- */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .7s,transform .7s}
 .reveal.show{opacity:1;transform:none}
 
 /* ---------- Responsive ---------- */
-@media(max-width:800px){
+/* Eight menu links need more room, so the burger menu starts earlier */
+@media(max-width:1000px){
   .burger{display:block}
-  .nav nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:3px solid var(--line)}
+  .nav nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:3px solid var(--line);max-height:calc(100vh - 70px);overflow-y:auto}
   .nav nav.open{display:flex}
   .nav nav a{padding:16px 6vw;border-bottom:2px solid var(--line)}
+}
+@media(max-width:800px){
   .hero{flex-direction:column-reverse;text-align:center;justify-content:center;gap:50px;padding-top:110px}
   .intro{margin-inline:auto}
+}
+@media(max-width:480px){
+  section{padding:90px 5vw 20px}
+  .hero{padding-top:90px;min-height:auto;padding-bottom:40px}
+  .card{padding:18px;box-shadow:5px 5px 0 #000}
+  .cards{gap:22px}
+  .big{font-size:17px}
+  h3{font-size:12px}
+  .tag{font-size:10px}
+  .btn{font-size:10px;padding:14px 16px;box-shadow:4px 4px 0 #000}
+  .chips{gap:10px}
+  .chips li{font-size:9px;padding:8px 10px}
+  .row{gap:6px}
+  .row .label{min-width:100%}
+  .p1{right:-8px}
+  .p2{left:-10px}
+  .admin-actions .btn{width:100%;text-align:center}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
