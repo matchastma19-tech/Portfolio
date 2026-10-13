@@ -20,6 +20,7 @@
       --accent:#ffd84d;
       --accent2:#46f0a8;
       --accent3:#ff5fb2;
+      --accent4:#5ab8ff;
       --pix:'Press Start 2P',monospace;
       --body:'Inter',system-ui,sans-serif;
     }
@@ -124,7 +125,28 @@
       background:repeating-linear-gradient(90deg,var(--accent2) 0 10px,transparent 10px 12px);
       transition:width 1.4s steps(12) .4s}
     .reveal.show .xp span{width:var(--w)}
-    @media(max-width:800px){.about-grid{grid-template-columns:1fr}}
+
+    /* Skills section */
+    .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+    .skill{--c:var(--accent2);position:relative;overflow:hidden;border-top:8px solid var(--c)}
+    .skill:hover{border-color:var(--c)}
+    .skill::after{content:"";position:absolute;right:-40px;bottom:-40px;width:120px;height:120px;
+      background:var(--c);opacity:.08;transform:rotate(45deg);transition:.3s}
+    .skill:hover::after{opacity:.18;transform:rotate(45deg) scale(1.3)}
+    .skill-head{display:flex;gap:16px;align-items:center;margin-bottom:16px}
+    .skill-head .icon{flex:0 0 auto;width:56px;height:56px;display:flex;align-items:center;justify-content:center;
+      font-size:26px;background:var(--bg2);border:4px solid var(--c);box-shadow:4px 4px 0 #000;transition:transform .2s}
+    .skill:hover .skill-head .icon{transform:rotate(-8deg) scale(1.1)}
+    .skill-head h3{margin:0;color:var(--c);font-size:13px}
+    .lv{display:inline-block;margin-top:6px;font-family:var(--pix);font-size:8px;color:#0a0a23;background:var(--c);padding:4px 6px}
+    .skill .xp{margin:14px 0 6px}
+    .skill .xp span{background:repeating-linear-gradient(90deg,var(--c) 0 10px,transparent 10px 12px)}
+    .xp-note{font-family:'VT323',monospace;font-size:19px;color:var(--muted);margin-bottom:16px}
+    .terms{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+    .terms li{font-family:'VT323',monospace;font-size:19px;line-height:1.2;padding:4px 10px;border:2px solid var(--c);color:var(--c);background:rgba(0,0,0,.25);transition:.15s}
+    .terms li:hover{background:var(--c);color:#0a0a23;transform:translateY(-3px)}
+
+    @media(max-width:800px){.about-grid,.skills-grid{grid-template-columns:1fr}}
 
     /* Scroll reveal */
     .reveal{opacity:0;transform:translateY(40px);transition:opacity .7s,transform .7s}
@@ -157,6 +179,7 @@
     <nav id="menu">
       <a href="#home">Home</a>
       <a href="#about">About</a>
+      <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
       <a href="#education">Education</a>
       <a href="#seminars">Seminars</a>
@@ -226,9 +249,96 @@
       </div>
     </section>
 
+    <!-- SKILLS -->
+    <section id="skills" class="reveal">
+      <h2><span class="lvl">02</span> Skills</h2>
+      <div class="skills-grid">
+
+        <article class="card skill" style="--c:var(--accent4)">
+          <div class="skill-head">
+            <div class="icon">&#127760;</div>
+            <div>
+              <h3>Networking in Packet Tracer</h3>
+              <span class="lv">LV 1 &middot; BEGINNER</span>
+            </div>
+          </div>
+          <div class="xp" aria-hidden="true"><span style="--w:25%"></span></div>
+          <p class="xp-note">XP: 25% &mdash; still leveling up!</p>
+          <ul class="terms">
+            <li>IP Addressing</li>
+            <li>Subnetting</li>
+            <li>VLANs</li>
+            <li>Routers &amp; Switches</li>
+            <li>Network Topology</li>
+            <li>Basic Routing</li>
+          </ul>
+        </article>
+
+        <article class="card skill" style="--c:var(--accent)">
+          <div class="skill-head">
+            <div class="icon">&#128187;</div>
+            <div>
+              <h3>Web Development</h3>
+              <span class="lv">LV 1 &middot; BEGINNER</span>
+            </div>
+          </div>
+          <div class="xp" aria-hidden="true"><span style="--w:25%"></span></div>
+          <p class="xp-note">XP: 25% &mdash; still leveling up!</p>
+          <ul class="terms">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>Responsive Design</li>
+            <li>GitHub</li>
+            <li>Vercel</li>
+          </ul>
+        </article>
+
+        <article class="card skill" style="--c:var(--accent2)">
+          <div class="skill-head">
+            <div class="icon">&#128737;</div>
+            <div>
+              <h3>Cybersecurity</h3>
+              <span class="lv">LV 1 &middot; BEGINNER</span>
+            </div>
+          </div>
+          <div class="xp" aria-hidden="true"><span style="--w:25%"></span></div>
+          <p class="xp-note">XP: 25% &mdash; still leveling up!</p>
+          <ul class="terms">
+            <li>CIA Triad</li>
+            <li>Threats &amp; Malware</li>
+            <li>Firewalls</li>
+            <li>Authentication</li>
+            <li>Network Security</li>
+            <li>Digital Forensics</li>
+          </ul>
+        </article>
+
+        <article class="card skill" style="--c:var(--accent3)">
+          <div class="skill-head">
+            <div class="icon">&#128373;</div>
+            <div>
+              <h3>Ethical Hacking</h3>
+              <span class="lv">LV 1 &middot; BEGINNER</span>
+            </div>
+          </div>
+          <div class="xp" aria-hidden="true"><span style="--w:25%"></span></div>
+          <p class="xp-note">XP: 25% &mdash; still leveling up!</p>
+          <ul class="terms">
+            <li>Reconnaissance</li>
+            <li>Vulnerability Scanning</li>
+            <li>Penetration Testing Basics</li>
+            <li>Linux Basics</li>
+            <li>Cyber Laws &amp; Ethics</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
     <!-- PROJECTS -->
     <section id="projects" class="reveal">
-      <h2><span class="lvl">02</span> Projects</h2>
+      <h2><span class="lvl">03</span> Projects</h2>
       <div class="cards">
         <article class="card project">
           <span class="badge">QUEST 01</span>
@@ -240,7 +350,7 @@
 
     <!-- EDUCATION -->
     <section id="education" class="reveal">
-      <h2><span class="lvl">03</span> Education</h2>
+      <h2><span class="lvl">04</span> Education</h2>
       <div class="card">
         <div class="row"><span class="label">Course</span><span>Bachelor of Science in Information Technology</span></div>
         <div class="row"><span class="label">University</span><span>Nueva Vizcaya University-Bayombong Campus</span></div>
@@ -249,7 +359,7 @@
 
     <!-- SEMINARS -->
     <section id="seminars" class="reveal">
-      <h2><span class="lvl">04</span> Seminars &amp; Trainings</h2>
+      <h2><span class="lvl">05</span> Seminars &amp; Trainings</h2>
       <article class="card cert">
         <span class="badge gold">&#9733; ACHIEVEMENT UNLOCKED</span>
         <h3>GCI World April 2026: Data Science Course</h3>
@@ -260,7 +370,7 @@
 
     <!-- CONTACTS -->
     <section id="contacts" class="reveal">
-      <h2><span class="lvl">05</span> Contacts</h2>
+      <h2><span class="lvl">06</span> Contacts</h2>
       <div class="card">
         <div class="row"><span class="label">Email</span>
           <a href="mailto:rizeam19@gmail.com">rizeam19@gmail.com</a></div>
