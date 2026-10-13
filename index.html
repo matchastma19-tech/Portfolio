@@ -1,147 +1,39 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Riza Mae Ollani | Portfolio</title>
-  <meta name="description" content="Portfolio of Riza Mae Ollani, an IT student leveling up in software development, networking, and ethical hacking.">
-  <link rel="icon" href="photo.jpg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <!-- Live background -->
-  <canvas id="stars" aria-hidden="true"></canvas>
-  <div class="grid-floor" aria-hidden="true"></div>
+<!-- ABOUT -->
+<section id="about" class="reveal">
+  <h2><span class="lvl">01</span> About</h2>
+  <div class="about-grid">
 
-  <header class="nav">
-    <a href="#home" class="logo">&lt;RM/&gt;</a>
-    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
-    <nav id="menu">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#achievements">Achievements</a>
-      <a href="#education">Education</a>
-      <a href="#seminars">Seminars</a>
-      <a href="#contacts">Contacts</a>
-    </nav>
-  </header>
+    <div class="card profile">
+      <p class="label">&#9654; PLAYER PROFILE</p>
+      <p class="big">I am a <strong>3rd-year</strong> student majoring in <strong>Network Design and Management</strong>.</p>
+      <p class="label">Interested in</p>
+      <ul class="chips">
+        <li>Software Development</li>
+        <li>Cybersecurity</li>
+        <li>Computer Networking</li>
+        <li>Digital Forensics</li>
+      </ul>
+    </div>
 
-  <main>
-    <!-- HOME -->
-    <section id="home" class="hero">
-      <div class="hero-text">
-        <p class="tag">&#9654; PLAYER 1 READY</p>
-        <h1>Riza Mae <span class="accent">Ollani</span></h1>
-        <p class="intro"><span id="typed"></span><span class="caret">_</span></p>
-        <noscript><p class="intro">Hi, I'm Riza Mae, an IT student leveling up in software development, networking, and ethical hacking.</p></noscript>
-        <a href="#about" class="btn blink">&#9654; Continue Learning. Never Game Over</a>
-      </div>
-
-      <div class="hero-photo">
-        <div class="frame">
-          <img src="photo.jpg" alt="Photo of Riza Mae Ollani"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-          <div class="placeholder" style="display:none">RM</div>
+    <div class="traits">
+      <article class="card trait">
+        <div class="icon">&#128269;</div>
+        <div>
+          <h3>Curious</h3>
+          <p>I love exploring and finding out how things work. I’m curious by nature and enjoy digging into the details until I understand them.</p>
+          <div class="xp" aria-hidden="true"><span style="--w:100%"></span></div>
         </div>
-        <span class="pixel p1"></span><span class="pixel p2"></span><span class="pixel p3"></span>
-      </div>
-    </section>
+      </article>
 
-    <!-- ABOUT -->
-    <section id="about" class="reveal">
-      <h2><span class="lvl">01</span> About</h2>
-      <div class="card">
-        <p class="big">I am a <strong>3rd-year</strong> student majoring in <strong>Network Design and Management</strong>.</p>
-        <p class="label">Interested in</p>
-        <ul class="chips">
-          <li>Software Development</li>
-          <li>Cybersecurity</li>
-          <li>Computer Networking</li>
-          <li>Digital Forensics</li>
-        </ul>
-      </div>
-    </section>
+      <article class="card trait">
+        <div class="icon">&#128260;</div>
+        <div>
+          <h3>Adaptable</h3>
+          <p>I’m also adaptable, and I welcome new technologies, ideas, and knowledge as they come.</p>
+          <div class="xp" aria-hidden="true"><span style="--w:90%"></span></div>
+        </div>
+      </article>
+    </div>
 
-    <!-- PROJECTS (filled by script.js from data.js) -->
-    <section id="projects" class="reveal">
-      <h2><span class="lvl">02</span> Projects</h2>
-      <div class="cards" id="projectList"></div>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills" class="reveal">
-      <h2><span class="lvl">03</span> Skills</h2>
-      <div id="skillList"></div>
-    </section>
-
-    <!-- ACHIEVEMENTS -->
-    <section id="achievements" class="reveal">
-      <h2><span class="lvl">04</span> Achievements</h2>
-      <div class="cards" id="achievementList"></div>
-    </section>
-
-    <!-- EDUCATION -->
-    <section id="education" class="reveal">
-      <h2><span class="lvl">05</span> Education</h2>
-      <div class="card">
-        <div class="row"><span class="label">Course</span><span>Bachelor of Science in Information Technology</span></div>
-        <div class="row"><span class="label">University</span><span>Nueva Vizcaya State University-Bayombong Campus</span></div>
-      </div>
-    </section>
-
-    <!-- SEMINARS -->
-    <section id="seminars" class="reveal">
-      <h2><span class="lvl">06</span> Seminars &amp; Trainings</h2>
-      <div class="cards" id="trainingList"></div>
-    </section>
-
-    <!-- CONTACTS -->
-    <section id="contacts" class="reveal">
-      <h2><span class="lvl">07</span> Contacts</h2>
-      <div class="card">
-        <div class="row"><span class="label">Email</span>
-          <a href="mailto:rizeam19@gmail.com">rizeam19@gmail.com</a></div>
-      </div>
-    </section>
-
-    <!-- ADMIN (only visible at yoursite.com/#admin) -->
-    <section id="admin" hidden>
-      <h2><span class="lvl">&#9881;</span> Admin</h2>
-      <div class="card">
-        <p class="admin-note">Entries saved here live only in <strong>this browser</strong> as a preview. To publish them for everyone, press <strong>Copy for data.js</strong>, paste into <code>data.js</code>, then push to GitHub.</p>
-        <form id="adminForm" autocomplete="off">
-          <label>Add to
-            <select id="fType">
-              <option value="projects">Project</option>
-              <option value="skills">Skill</option>
-              <option value="achievements">Achievement</option>
-              <option value="trainings">Training / Seminar</option>
-            </select>
-          </label>
-          <label>Title <input id="fTitle" required maxlength="120"></label>
-          <label id="fDetailsWrap"><span id="fDetailsLabel">Description</span> <textarea id="fDetails" rows="3" maxlength="300"></textarea></label>
-          <label id="fExtraWrap"><span id="fExtraLabel">Link (optional)</span> <input id="fExtra" maxlength="200"></label>
-          <div class="admin-actions">
-            <button type="submit" class="btn">+ Add</button>
-            <button type="button" class="btn alt" id="exportBtn">Copy for data.js</button>
-            <button type="button" class="btn danger" id="resetBtn">Reset preview</button>
-          </div>
-          <p id="adminMsg" role="status"></p>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; <span id="year"></span> Riza Mae Ollani &middot; Continue Learning. Never Game Over.</p>
-  </footer>
-
-  <script src="data.js"></script>
-  <script src="script.js"></script>
-</body>
-</html>
+  </div>
+</section>
